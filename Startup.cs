@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,9 +22,29 @@ namespace MVC_Swagger
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            //Customized code starting from the example: https://code-maze.com/swagger-ui-asp-net-core-web-api/
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Swagger Example", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Title = "API Swagger Example", 
+                    Version = "v1",
+                    Description = "API example that returns the current time",
+                    TermsOfService = new Uri("https://example.com/terms"), 
+
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Nominativo contatto",
+                        Email = "Email contatto",
+                        Url = new Uri("https://twitter.com/username-contatto"),
+                    },
+
+                    License = new OpenApiLicense
+                    {
+                        Name = "Nome licenza API",
+                        Url = new Uri("https://example.com/license"),
+                    }
+                });
             });
         }
 
